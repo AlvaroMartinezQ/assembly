@@ -1,39 +1,37 @@
 ################################################################################
 #
-#    ORGANIZACI”N Y ARQUITECTURA DE COMPUTADORES
 #    Programa que calcula el negativo de una imagen
-#    AUTOR: Luis RincÛn CÛrcoles (luis.rincon@urjc.es)
 #
 ################################################################################
 
 ################################################################################
 #
-#    SecciÛn de datos
+#    Secci√≥n de datos
 #
 ################################################################################
 			.data
 			.align	2
-# Imagen de entrada: es un puntero a una regiÛn de memoria din·mica
+# Imagen de entrada: es un puntero a una regi√≥n de memoria din√°mica
 #                    donde se encuentra la imagen
 imagen_in:		.space	4
 # Dimensiones de la imagen
 ancho:			.space	4
 alto:			.space	4
-# Imagen de salida: es un puntero a una regiÛn de memoria din·mica
+# Imagen de salida: es un puntero a una regi√≥n de memoria din√°mica
 #                   donde se encuentra la imagen
 imagen_out:		.space	4
 
 
 ################################################################################
 #
-#    SecciÛn de cÛdigo
+#    Secci√≥n de c√≥digo
 #
 ################################################################################
 
 			.text
 			.globl	main
 main:
-# Reservar marco de pila (sÛlo espacio para par·metros)
+# Reservar marco de pila (s√≥lo espacio para par√°metros)
 			addiu	$sp,$sp,-16
 # Leer imagen de entrada
 leer_imagen:
@@ -51,7 +49,7 @@ retorno_lectura:
 			lw	$a2,ancho
 			jal	img_create
 
-# AquÌ se incluye llamada a la subrutina de proceso de la imagen
+# Aqu√≠ se incluye llamada a la subrutina de proceso de la imagen
 proceso:
 			lw	$a0,imagen_in	# Se copia el puntero en $a0
 			lw	$a1,alto	# Se copia el alto en $a1
