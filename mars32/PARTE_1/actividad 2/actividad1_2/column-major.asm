@@ -1,8 +1,6 @@
 ################################################################
 #
 #  Column-major order traversal of 16 x 16 array of words.
-#  Pete Sanderson
-#  31 March 2007
 #
 #  To easily observe the column-oriented order, run the Memory Reference
 #  Visualization tool with its default settings over this program.
