@@ -1,9 +1,7 @@
 ################################################################################
 #
-#    LECTURA Y ESCRITURA DE IM¡GENES EN FORMATO PGM
-#    AUTOR: Luis RincÛn CÛrcoles (luis.rincon@urjc.es)
-#    FECHA:
-#         VersiÛn 2: 23-2-2015
+#    LECTURA Y ESCRITURA DE IM√ÅGENES EN FORMATO PGM
+#    
 ################################################################################
 #
 #    RUTINAS GLOBALES:
@@ -12,43 +10,43 @@
 #	
 #################################################################################
 #    Limitaciones:
-#       El tamaÒo de la imagen no puede superar los  MBytes
-#       No se pueden leer im·genes en color
-#       El n˙mero de niveles de gris de la imagen no puede ser superior a 255
+#       El tama√±o de la imagen no puede superar los  MBytes
+#       No se pueden leer im√°genes en color
+#       El n√∫mero de niveles de gris de la imagen no puede ser superior a 255
 #
 ################################################################################
 
 
 ################################################################################
 #
-# CÛdigos de error de las subrutinas
+# C√≥digos de error de las subrutinas
 #
 ################################################################################
 #
 #   0: lectura o escritura correcta
 #  -1: error de apertura del fichero
-#  -2: el archivo no es una imagen PGM (no tiene el n˙mero m·gico)
+#  -2: el archivo no es una imagen PGM (no tiene el n√∫mero m√°gico)
 #  -3: ancho de la imagen desconocido
 #  -4: ancho de la imagen igual a 0
 #  -5: alto de la imagen desconocido
 #  -6: alto de la imagen igual a 0
-#  -7: n˙mero de niveles de gris desconocido
-#  -8: n˙mero de niveles de gris igual a 0
-#  -9: n˙mero de niveles de gris de la imagen mayor que 255
+#  -7: n√∫mero de niveles de gris desconocido
+#  -8: n√∫mero de niveles de gris igual a 0
+#  -9: n√∫mero de niveles de gris de la imagen mayor que 255
 #
 ################################################################################
 
 		
 ################################################################################
 #
-#    SecciÛn de datos
+#    Secci√≥n de datos
 #
 ################################################################################				
 		.data
 
 eoln:		.asciiz	"\n"
 tab_char:	.byte	9 		# Tabulador: '\t'
-lf_char:	.byte	10		# Salto de lÌnea: '\lf'
+lf_char:	.byte	10		# Salto de l√≠nea: '\lf'
 cr_char:	.byte	13		# Retorno de carro: '\cr'
 sp_char:	.byte	32		# Espacio en blanco: ' '
 
@@ -59,7 +57,7 @@ buffer:		.space	10
 		
 ################################################################################
 #
-#    SecciÛn de cÛdigo
+#    Secci√≥n de c√≥digo
 #
 ################################################################################
 		.text
@@ -71,14 +69,14 @@ buffer:		.space	10
 # Subrutina que lee una imagen en formato PGM
 #
 ################################################################################
-# Par·metros
+# Par√°metros
 #	a0: imagen (por referencia)
-#	a1: n˙mero de filas (por referencia)
-#	a2: n˙mero de columnas (por referencia)
+#	a1: n√∫mero de filas (por referencia)
+#	a2: n√∫mero de columnas (por referencia)
 #       a3: tira de caracteres con el nombre del fichero
 ################################################################################
 # Valor de retorno
-#       v0: cÛdigo de error (=0 si correcto, <0 si error)
+#       v0: c√≥digo de error (=0 si correcto, <0 si error)
 ################################################################################
 # Tipo de subrutina: tallo
 ################################################################################
@@ -118,14 +116,14 @@ pgm_read_fopen:
 # Descriptor en $s3
 pgm_read_fd_save_s3:
 		move	$s3,$v0
-# Leer cadena m·gica (2 bytes) y ponerla en buffer
+# Leer cadena m√°gica (2 bytes) y ponerla en buffer
 pgm_read_magic:
 		li	$v0,14
 		move	$a0,$s3
 		la	$a1,buffer
 		li	$a2,2
 		syscall
-# Comprobar que la cadena m·gica es "P5"
+# Comprobar que la cadena m√°gica es "P5"
 		li	$t0,'5'
 		sll	$t0,$t0,8
 		ori	$t0,$t0,'P'
@@ -134,14 +132,14 @@ pgm_read_magic:
 
 # Saltarse comentarios
 pgm_read_comment_loop:
-# Saltar hasta car·cter no "blanco"
+# Saltar hasta car√°cter no "blanco"
 		move	$a0,$s3
 		jal	jump_whitesp
-# Si el car·cter leÌdo no es '#', salir del bucle
+# Si el car√°cter le√≠do no es '#', salir del bucle
 		li	$t0,'#'
 		lbu	$t1,buffer
 		bne	$t0,$t1,pgm_read_comment_loop_end
-# Si el car·cter leÌdo es '#', llegar hasta el salto de lÌnea
+# Si el car√°cter le√≠do es '#', llegar hasta el salto de l√≠nea
 		move	$a0,$s3
 		jal	jump_lf
 # Continuar en el bucle
@@ -155,7 +153,7 @@ pgm_read_width:
 		bne	$v0,$zero,error_width01
 		beq	$v1,$zero,error_width02
 		sw	$v1,0($s2)
-# Saltar hasta car·cter no "blanco"
+# Saltar hasta car√°cter no "blanco"
 		move	$a0,$s3
 		jal	jump_whitesp
 # Leer alto, debe ser mayor que 0
@@ -165,28 +163,28 @@ pgm_read_height:
 		bne	$v0,$zero,error_height01
 		beq	$v1,$zero,error_height02
 		sw	$v1,0($s1)
-# Saltar hasta car·cter no "blanco"
+# Saltar hasta car√°cter no "blanco"
 		move	$a0,$s3
 		jal	jump_whitesp
-# Leer n˙mero de niveles de gris (debe ser menor o igual que 255)
+# Leer n√∫mero de niveles de gris (debe ser menor o igual que 255)
 pgm_read_gray:
 		move	$a0,$s3
 		jal	read_num
 		bne	$v0,$zero,error_gray01
 		beq	$v1,$zero,error_gray02
 		bgt	$v1,255,error_gray03
-# El ˙ltimo car·cter leÌdo es un "blanco", y lo daremos por bueno
+# El √∫ltimo car√°cter le√≠do es un "blanco", y lo daremos por bueno
 # Reservar espacio para la matriz
 # Calcular espacio
 		lw	$t0,0($s2)
 		lw	$t1,0($s1)
 		mul	$a0,$t0,$t1
-# Reservar espacio en memoria din·mica
+# Reservar espacio en memoria din√°mica
 		li	$v0,9
 		syscall
-# El puntero al hueco generado est· en $v0: copiarlo en 0($s0)		
+# El puntero al hueco generado est√° en $v0: copiarlo en 0($s0)		
 		sw	$v0,0($s0)
-# Leer datos de la imagen, lÌnea por lÌnea
+# Leer datos de la imagen, l√≠nea por l√≠nea
 pgm_read_img_data:
 # Poner puntero inicial y final
 		lw	$t0,0($s0)
@@ -202,7 +200,7 @@ pgm_read_loop:
 		syscall
 # Incrementar puntero
 		addu	$t0,$t0,$t3
-# CondiciÛn de salir
+# Condici√≥n de salir
 		bne	$t0,$t1,pgm_read_loop
 # Leido correctamente
 		move	$t0,$zero
@@ -267,13 +265,13 @@ pgm_read_return:
 # Subrutina que escribe una imagen en formato PGM
 #
 ################################################################################
-# Par·metros
+# Par√°metros
 #	a0: imagen (por referencia)
-#	a1: n˙mero de filas (por copia)
-#	a2: n˙mero de columnas (por copia)
+#	a1: n√∫mero de filas (por copia)
+#	a2: n√∫mero de columnas (por copia)
 ################################################################################
 # Valor de retorno
-#       v0: cÛdigo de error (=0 si correcto, <0 si error)
+#       v0: c√≥digo de error (=0 si correcto, <0 si error)
 ################################################################################
 # Tipo de subrutina: tallo
 ################################################################################
@@ -313,7 +311,7 @@ pgm_write_fopen:
 # Descriptor en $s3
 pgm_write_fd_save_s3:
 		move	$s3,$v0
-# Escribir cadena m·gica P5
+# Escribir cadena m√°gica P5
 pgm_write_magic:
 		li	$t0,'P'
 		sb	$t0,buffer
@@ -324,7 +322,7 @@ pgm_write_magic:
 		la	$a1,buffer
 		li	$a2,2
 		syscall
-# Escribir fin de lÌnea
+# Escribir fin de l√≠nea
 		li	$v0,15
 		move	$a0,$s3
 		la	$a1,lf_char
@@ -345,7 +343,7 @@ pgm_write_magic:
 		move	$a0,$s3
 		move	$a1,$s1
 		jal	write_num
-# Escribir fin de lÌnea
+# Escribir fin de l√≠nea
 		li	$v0,15
 		move	$a0,$s3
 		la	$a1,lf_char
@@ -355,13 +353,13 @@ pgm_write_magic:
 		move	$a0,$s3
 		li	$a1,255
 		jal	write_num
-# Escribir fin de lÌnea
+# Escribir fin de l√≠nea
 		li	$v0,15
 		move	$a0,$s3
 		la	$a1,lf_char
 		li	$a2,1
 		syscall
-# Escribir datos de la imagen, lÌnea por lÌnea
+# Escribir datos de la imagen, l√≠nea por l√≠nea
 pgm_write_img_data:
 # Poner puntero inicial y final
 		move	$t0,$s0
@@ -377,7 +375,7 @@ pgm_write_loop:
 		syscall
 # Incrementar puntero
 		addu	$t0,$t0,$t3
-# CondiciÛn de salir
+# Condici√≥n de salir
 		bne	$t0,$t1,pgm_write_loop
 # Escrito correctamente
 		move	$t0,$zero
@@ -418,9 +416,9 @@ pgm_write_return:
 #    RUTINAS AUXILIARES:
 #       read_num: lee en fichero un entero representado en ASCII
 #       write_num: escribe en fichero un entero representado en ASCII
-#	is_whitesp: indica si el car·cter actual es un blanco
+#	is_whitesp: indica si el car√°cter actual es un blanco
 #       jump_whitesp: salta blancos en un fichero
-#	jump_lf: salta caracteres en fichero hasta llegar al retorno de lÌnea
+#	jump_lf: salta caracteres en fichero hasta llegar al retorno de l√≠nea
 #	
 #################################################################################
 
@@ -428,17 +426,17 @@ pgm_write_return:
 
 ################################################################################
 #
-# Rutina que lee de fichero un valor numÈrico en ASCII
-# El primer car·cter est· en buffer
-# Si encuentra algo que no sea numÈrico o "blanco": error
+# Rutina que lee de fichero un valor num√©rico en ASCII
+# El primer car√°cter est√° en buffer
+# Si encuentra algo que no sea num√©rico o "blanco": error
 #
 ################################################################################
-# Par·metros
+# Par√°metros
 #	a0: descriptor del fichero
 ################################################################################
 # Valor de retorno
-#       v0: cÛdigo de error
-#       v1: valor leÌdo
+#       v0: c√≥digo de error
+#       v1: valor le√≠do
 ################################################################################
 # Tipo de subrutina: tallo
 ################################################################################
@@ -457,7 +455,7 @@ read_num:
 # Poner valor acumulado a 0
 		move	$v1,$zero
 loop_read_num:
-# Si el car·cter actual no es un dÌgito, error
+# Si el car√°cter actual no es un d√≠gito, error
 		lbu	$t0,buffer
 		li	$t1,'0'
 		subu	$t2,$t0,$t1
@@ -467,8 +465,8 @@ loop_read_num:
 		li	$t3,10
 		mul	$v1,$v1,$t3
 		addu	$v1,$v1,$t2
-# Leer el siguiente car·cter
-# FaltarÌa comprobar si fin de fichero
+# Leer el siguiente car√°cter
+# Faltar√≠a comprobar si fin de fichero
 		li	$v0,14
 		move	$a0,$t9
 		la	$a1,buffer
@@ -477,8 +475,8 @@ loop_read_num:
 # Continuar en el bucle
 		b	loop_read_num
 end_loop_read_num:
-# ⁄ltimo car·cter leÌdo no es un dÌgito
-# Si ese car·cter no es un "blanco": error
+# √öltimo car√°cter le√≠do no es un d√≠gito
+# Si ese car√°cter no es un "blanco": error
 		lbu	$a0,buffer
 		jal	is_whitesp
 		bne	$v0,$zero,ok_read_num
@@ -505,11 +503,11 @@ end_read_num:
 ################################################################################
 #
 # Rutina que se salta caracteres en blanco en un fichero
-# Como mÌnimo se lee un car·cter
-# El ˙ltimo car·cter leÌdo est· en la primera posiciÛn del buffer
+# Como m√≠nimo se lee un car√°cter
+# El √∫ltimo car√°cter le√≠do est√° en la primera posici√≥n del buffer
 #
 ################################################################################
-# Par·metros
+# Par√°metros
 #	a0: descriptor del fichero
 ################################################################################
 # Valor de retorno
@@ -531,18 +529,18 @@ jump_whitesp:
 		move	$t9,$a0
 # Bucle
 loop_jump_whitesp:
-# Leer un car·cter
+# Leer un car√°cter
 		li	$v0,14
 		move	$a0,$t9
 		la	$a1,buffer
 		li	$a2,1
 		syscall
-# Car·cter leÌdo en $a0
-# FaltarÌa comprobar si fin de fichero
+# Car√°cter le√≠do en $a0
+# Faltar√≠a comprobar si fin de fichero
 		lbu	$a0,buffer
 		jal	is_whitesp
 		bne	$v0,$zero,loop_jump_whitesp
-# Si llegamos aquÌ, estamos en un car·cter que no es blanco
+# Si llegamos aqu√≠, estamos en un car√°cter que no es blanco
 end_loop_jump_whitesp:
 # Igualar puntero de pila y de marco
 		move	$sp,$fp
@@ -559,11 +557,11 @@ end_loop_jump_whitesp:
 
 ################################################################################
 #
-# Rutina que indica si el car·cter actual es un "blanco"
+# Rutina que indica si el car√°cter actual es un "blanco"
 #
 ################################################################################
-# Par·metros
-#	a0: car·cter actual
+# Par√°metros
+#	a0: car√°cter actual
 #################################################################################
 # Valor de retorno
 #       v0: 1 si cierto, 0 si falso
@@ -593,12 +591,12 @@ is_whitesp_endif:
 
 ################################################################################
 #
-# Rutina que se salta caracteres hasta el prÛximo fin de lÌnea
-# Como mÌnimo se lee un car·cter
-# El ˙ltimo car·cter leÌdo es el lf
+# Rutina que se salta caracteres hasta el pr√≥ximo fin de l√≠nea
+# Como m√≠nimo se lee un car√°cter
+# El √∫ltimo car√°cter le√≠do es el lf
 #
 ################################################################################
-# Par·metros
+# Par√°metros
 #	a0: descriptor del fichero
 ################################################################################
 # Valor de retorno
@@ -611,18 +609,18 @@ jump_lf:
 		move	$t9,$a0
 # Bucle
 loop_jump_lf:
-# Leer un car·cter
+# Leer un car√°cter
 		li	$v0,14
 		move	$a0,$t9
 		la	$a1,buffer
 		li	$a2,1
 		syscall
-# Car·cter leÌdo en $t0
+# Car√°cter le√≠do en $t0
 		lbu	$t0,buffer
 # Si no igual a LF, seguir
 		lbu	$t1,lf_char
 		bne	$t0,$t1,loop_jump_lf
-# Si llegamos aquÌ, estamos en un car·cter LF
+# Si llegamos aqu√≠, estamos en un car√°cter LF
 end_loop_jump_lf:
 		jr	$ra
 
@@ -630,13 +628,13 @@ end_loop_jump_lf:
 
 ################################################################################
 #
-# Rutina que escribe en fichero un valor numÈrico en ASCII
-# Pone los dÌgitos en orden inverso en buffer
+# Rutina que escribe en fichero un valor num√©rico en ASCII
+# Pone los d√≠gitos en orden inverso en buffer
 #
 ################################################################################
-# Par·metros
+# Par√°metros
 #	a0: descriptor del fichero
-#	a1: dato numÈrico
+#	a1: dato num√©rico
 #################################################################################
 # Valor de retorno
 #       ninguno
