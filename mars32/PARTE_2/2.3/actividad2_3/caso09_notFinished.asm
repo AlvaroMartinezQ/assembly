@@ -1,7 +1,7 @@
 		.data
 m1:		.asciiz "Caso de prueba 9\n"
 m2:		.asciiz "Fin del caso de prueba 9\n"
-str_pedir:	.asciiz	"Introduzca un dato numérico positivo: "
+str_pedir:	.asciiz	"Introduzca un dato numÃ©rico positivo: "
 str_indice:	.asciiz	"Indice = "
 eoln:		.byte	'\n'
 		.text
@@ -23,10 +23,10 @@ pedir_dato:
 		ble	$v0,$zero,pedir_dato
 # Activar interrupciones del temporizador
 activar:
-##### EL ALUMNO SUSTITUIRÁ ESTOS COMENTARIOS POR CÓDIGO ENSAMBLADOR
-##### QUE HABILITA LAS INTERRUPCIONES DEL CONTADOR/TEMPORIZADOR
+##### ????????
+##### ????????
 
-# Iniciar índice de bucle
+# Iniciar Ã­ndice de bucle
 		move	$t0,$v0
 # Bucle
 bucle:
@@ -36,15 +36,15 @@ bucle:
 		li	$v0,1		# Escribir entero
 		move	$a0,$t0
 		syscall
-		li	$v0,11		# Escribir salto de línea
+		li	$v0,11		# Escribir salto de lÃ­nea
 		lbu	$a0,eoln
 		syscall
-		addi	$t0,$t0,-1	# Decrementar índice
-		bne	$t0,$zero,bucle	# Comprobar condición
+		addi	$t0,$t0,-1	# Decrementar Ã­ndice
+		bne	$t0,$zero,bucle	# Comprobar condiciÃ³n
 # Desactivar interrupciones del temporizador
 desactivar:
-##### EL ALUMNO SUSTITUIRÁ ESTOS COMENTARIOS POR CÓDIGO ENSAMBLADOR
-##### QUE DESHABILITA LAS INTERRUPCIONES DEL CONTADOR/TEMPORIZADOR
+##### ????????
+##### ????????
 
 
 
