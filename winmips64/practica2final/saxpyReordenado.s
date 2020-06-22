@@ -19,7 +19,7 @@ s: 	.double 0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
 loop:	
 	l.d f1,x(r1)
 	
-	mtc1 r2,f2		;aqui estaba mtc1 r2,f2
+	mtc1 r2,f2		
 	cvt.d.l f2,f2
 	
 	mul.d f3,f1,f2
@@ -29,7 +29,7 @@ loop:
 	add.d f5,f3,f4
 
 	cvt.l.d f6,f5
-		;r6 no se usa? Se puede obviar esta instruccion?
+		
 	s.d f5,s(r1)
 	
 	daddi r1,r1,8
