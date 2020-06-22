@@ -1,5 +1,5 @@
 		.data
-str_pedir:	.asciiz	"Introduzca un dato numérico (0 <= dato <= 255): "
+str_pedir:	.asciiz	"Introduzca un dato numÃ©rico (0 <= dato <= 255): "
 
 		.text
 main:
@@ -17,16 +17,16 @@ procesar_derecho:
 		move	$s0,$v0
 # Seleccionar los 4 bits menos significativos del dato
 		andi	$a0,$s0,0x0f
-# Convertir la cifra hexadecimal a la codificación de 7 segmentos
+# Convertir la cifra hexadecimal a la codificaciÃ³n de 7 segmentos
 		jal	cod7seg
 # Escribir la cifra en el visualizador derecho
 escribir_derecho:
 		sb	$v0,0xffff0010
-# Seleccionar los 4 bits más significativos del dato y ponerlos a la derecha
+# Seleccionar los 4 bits mÃ¡s significativos del dato y ponerlos a la derecha
 procesar_izquierdo:
 		andi	$a0,$s0,0xf0
 		srl	$a0,$a0,4
-# Convertir la cifra hexadecimal a la codificación de 7 segmentos
+# Convertir la cifra hexadecimal a la codificaciÃ³n de 7 segmentos
 		jal	cod7seg
 # Escribir la cifra en el visualizador izquierdo
 escribir_izquierdo:
@@ -39,7 +39,7 @@ fin:
 
 
 ###############################################################
-# SUBRUTINA QUE CONVIERTE UN NÚMERO HEXADECIMAL A 7 SEGMENTOS
+# SUBRUTINA QUE CONVIERTE UN NÃšMERO HEXADECIMAL A 7 SEGMENTOS
 #    Argumento de entrada: $a0
 #    Resultado: $v0
 ###############################################################
