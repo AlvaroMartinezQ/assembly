@@ -1,24 +1,15 @@
 ################################################################################
 #
-#    RUTINAS PARA LECTURA Y ESCRITURA DE IMÁGENES EN PGM
-#    AUTOR: Luis Rincón Córcoles (luis.rincon@urjc.es)
-#    FECHA:
-#         Versión 2: 23-2-2015
-#	
-################################################################################
-
-################################################################################
-#
 #    RUTINAS GLOBALES:
-#       img_read: petición del nombre de archivo y lectura de imagen
-#       img_write: petición del nombre de archivo y escritura de imagen
-#	img_create: crear espacio para una imagen en memoria dinámica
+#       img_read: peticiÃ³n del nombre de archivo y lectura de imagen
+#       img_write: peticiÃ³n del nombre de archivo y escritura de imagen
+#	img_create: crear espacio para una imagen en memoria dinÃ¡mica
 #	
 ################################################################################
 
 ################################################################################
 #
-#    Sección de datos
+#    SecciÃ³n de datos
 #
 ################################################################################
 		.data
@@ -32,8 +23,8 @@ str_ancho:	.asciiz	"Ancho: "
 str_alto:	.asciiz	"Alto:  "
 str_eoln:	.asciiz	"\n"
 
-# Tiras para mensajes de error (ver códigos en pgm_io.asm)
-str_read_ok:	.asciiz	"Imagen leída correctamente"
+# Tiras para mensajes de error (ver cÃ³digos en pgm_io.asm)
+str_read_ok:	.asciiz	"Imagen leÃ­da correctamente"
 str_write_ok:	.asciiz	"Imagen grabada correctamente"
 str_read_err:	.asciiz	"Error en la lectura de la imagen: "
 str_write_err:	.asciiz	"Error en la escritura de la imagen: "
@@ -43,13 +34,13 @@ str_error_3:	.asciiz	"ancho de la imagen desconocido"
 str_error_4:	.asciiz	"el ancho de la imagen no puede ser igual a 0"
 str_error_5:	.asciiz	"alto de la imagen desconocido"
 str_error_6:	.asciiz	"el alto de la imagen no puede ser igual a 0"
-str_error_7:	.asciiz	"el número de niveles de gris de la imagen es desconocido"
-str_error_8:	.asciiz	"el número de niveles de gris de la imagen no puede ser igual a 0"
-str_error_9:	.asciiz	"el número de niveles de gris de la imagen no puede ser mayor que 255"
+str_error_7:	.asciiz	"el nÃºmero de niveles de gris de la imagen es desconocido"
+str_error_8:	.asciiz	"el nÃºmero de niveles de gris de la imagen no puede ser igual a 0"
+str_error_9:	.asciiz	"el nÃºmero de niveles de gris de la imagen no puede ser mayor que 255"
 
 ################################################################################
 #
-#    Sección de código
+#    SecciÃ³n de cÃ³digo
 #
 ################################################################################
 		.text
@@ -63,10 +54,10 @@ str_error_9:	.asciiz	"el número de niveles de gris de la imagen no puede ser may
 # Subrutina que reserva espacio en memoria para una imagen
 #
 ################################################################################
-# Parámetros
+# ParÃ¡metros
 #	a0: imagen (por referencia)
-#	a1: número de filas (por copia)
-#	a2: número de columnas (por copia)
+#	a1: nÃºmero de filas (por copia)
+#	a2: nÃºmero de columnas (por copia)
 ################################################################################
 # Valor de retorno
 #       ninguno
@@ -80,7 +71,7 @@ img_create:
 		mul	$a0,$a1,$a2
 		li	$v0,9
 		syscall
-# El puntero al hueco generado está en $v0: copiarlo en 0($t0)		
+# El puntero al hueco generado estÃ¡ en $v0: copiarlo en 0($t0)		
 		sw	$v0,0($t0)
 # Retornar
 		jr	$ra
@@ -91,10 +82,10 @@ img_create:
 # Subrutina que pide un nombre de fichero y lee una imagen en formato PGM
 #
 ################################################################################
-# Parámetros
+# ParÃ¡metros
 #	a0: imagen (por referencia)
-#	a1: número de filas (por referencia)
-#	a2: número de columnas (por referencia)
+#	a1: nÃºmero de filas (por referencia)
+#	a2: nÃºmero de columnas (por referencia)
 ################################################################################
 # Valor de retorno
 #       ninguno
@@ -147,10 +138,10 @@ read_data:
 # Subrutina que pide un nombre de fichero y escribe una imagen en formato PGM
 #
 ################################################################################
-# Parámetros
+# ParÃ¡metros
 #	a0: imagen (por referencia)
-#	a1: número de filas (por valor)
-#	a2: número de columnas (por valor)
+#	a1: nÃºmero de filas (por valor)
+#	a2: nÃºmero de columnas (por valor)
 ################################################################################
 # Valor de retorno
 #       ninguno
@@ -201,7 +192,7 @@ write_data:
 ################################################################################
 #
 #    RUTINAS AUXILIARES:
-#       ask_fname: petición del nombre de fichero de imagen
+#       ask_fname: peticiÃ³n del nombre de fichero de imagen
 #       msg_print: escritura de mensajes de error
 #	
 ################################################################################
@@ -212,10 +203,10 @@ write_data:
 # Subrutina que pide un nombre de fichero
 #
 ################################################################################
-# Parámetros
+# ParÃ¡metros
 #	a0: tira de caracteres con mensaje indicativo (por referencia, entrada)
 #	a1: tira de caracteres con nombre de fichero (por referencia, salida)
-#	a2: longitud máxima del nombre del fichero (por valor)
+#	a2: longitud mÃ¡xima del nombre del fichero (por valor)
 ################################################################################
 # Valor de retorno
 #       v0: tira de caracteres con nombre de fichero (por referencia, salida)
@@ -229,7 +220,7 @@ ask_fname:
 # Pedir el nombre de fichero
 		li	$v0,54
 		syscall
-# Borrar el fin de línea final y poner un nulo
+# Borrar el fin de lÃ­nea final y poner un nulo
 		move	$t3,$t1
 		lbu	$t4,str_eoln
 loop_ask_fname:
@@ -260,12 +251,12 @@ end_loop_ask_fname:
 # Subrutina que escribe mensajes de error
 #
 ################################################################################
-# Parámetros
-#	a0: código del error
-#	a1: operación realizada (0: lectura; 1: escritura)
+# ParÃ¡metros
+#	a0: cÃ³digo del error
+#	a1: operaciÃ³n realizada (0: lectura; 1: escritura)
 ################################################################################
 # Valor de retorno
-#       v0: código del error
+#       v0: cÃ³digo del error
 ################################################################################
 # Tipo de subrutina: hoja
 ################################################################################
@@ -273,7 +264,7 @@ msg_print:
 # Copiar argumento en $t0
 		move	$t0,$a0
 # Mensajes
-# Comprobación de error
+# ComprobaciÃ³n de error
 		bne	$t0,$zero,msg_error
 # Lectura o escritura correcta
 		bne	$a1,$zero,msg_write_ok
