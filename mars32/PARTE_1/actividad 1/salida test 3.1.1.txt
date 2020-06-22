@@ -1,0 +1,81 @@
+(1) address: 0x10010024 (tag 0x00800801)  block range: 2-3
+   trying block 2 empty -- MISS
+(2) address: 0x10010080 (tag 0x00800804)  block range: 0-1
+   trying block 0 empty -- MISS
+(3) address: 0x10010080 (tag 0x00800804)  block range: 0-1
+   trying block 0 tag 0x00800804 -- HIT
+(4) address: 0x10010020 (tag 0x00800801)  block range: 0-1
+   trying block 0 tag 0x00800804 -- OCCUPIED
+   trying block 1 empty -- MISS
+(5) address: 0x10010084 (tag 0x00800804)  block range: 2-3
+   trying block 2 tag 0x00800801 -- OCCUPIED
+   trying block 3 empty -- MISS
+(6) address: 0x10010084 (tag 0x00800804)  block range: 2-3
+   trying block 2 tag 0x00800801 -- OCCUPIED
+   trying block 3 tag 0x00800804 -- HIT
+(7) address: 0x1001001c (tag 0x00800800)  block range: 14-15
+   trying block 14 empty -- MISS
+(8) address: 0x10010088 (tag 0x00800804)  block range: 4-5
+   trying block 4 empty -- MISS
+(9) address: 0x10010088 (tag 0x00800804)  block range: 4-5
+   trying block 4 tag 0x00800804 -- HIT
+(10) address: 0x10010018 (tag 0x00800800)  block range: 12-13
+   trying block 12 empty -- MISS
+(11) address: 0x1001008c (tag 0x00800804)  block range: 6-7
+   trying block 6 empty -- MISS
+(12) address: 0x1001008c (tag 0x00800804)  block range: 6-7
+   trying block 6 tag 0x00800804 -- HIT
+(13) address: 0x10010014 (tag 0x00800800)  block range: 10-11
+   trying block 10 empty -- MISS
+(14) address: 0x10010090 (tag 0x00800804)  block range: 8-9
+   trying block 8 empty -- MISS
+(15) address: 0x10010090 (tag 0x00800804)  block range: 8-9
+   trying block 8 tag 0x00800804 -- HIT
+(16) address: 0x10010010 (tag 0x00800800)  block range: 8-9
+   trying block 8 tag 0x00800804 -- OCCUPIED
+   trying block 9 empty -- MISS
+(17) address: 0x10010094 (tag 0x00800804)  block range: 10-11
+   trying block 10 tag 0x00800800 -- OCCUPIED
+   trying block 11 empty -- MISS
+(18) address: 0x10010094 (tag 0x00800804)  block range: 10-11
+   trying block 10 tag 0x00800800 -- OCCUPIED
+   trying block 11 tag 0x00800804 -- HIT
+(19) address: 0x1001000c (tag 0x00800800)  block range: 6-7
+   trying block 6 tag 0x00800804 -- OCCUPIED
+   trying block 7 empty -- MISS
+(20) address: 0x10010098 (tag 0x00800804)  block range: 12-13
+   trying block 12 tag 0x00800800 -- OCCUPIED
+   trying block 13 empty -- MISS
+(21) address: 0x10010098 (tag 0x00800804)  block range: 12-13
+   trying block 12 tag 0x00800800 -- OCCUPIED
+   trying block 13 tag 0x00800804 -- HIT
+(22) address: 0x10010008 (tag 0x00800800)  block range: 4-5
+   trying block 4 tag 0x00800804 -- OCCUPIED
+   trying block 5 empty -- MISS
+(23) address: 0x1001009c (tag 0x00800804)  block range: 14-15
+   trying block 14 tag 0x00800800 -- OCCUPIED
+   trying block 15 empty -- MISS
+(24) address: 0x1001009c (tag 0x00800804)  block range: 14-15
+   trying block 14 tag 0x00800800 -- OCCUPIED
+   trying block 15 tag 0x00800804 -- HIT
+(25) address: 0x10010004 (tag 0x00800800)  block range: 2-3
+   trying block 2 tag 0x00800801 -- OCCUPIED
+   trying block 3 tag 0x00800804 -- OCCUPIED
+   MISS due to FULL SET -- LRU replace block 2; unused since (1)
+(26) address: 0x100100a0 (tag 0x00800805)  block range: 0-1
+   trying block 0 tag 0x00800804 -- OCCUPIED
+   trying block 1 tag 0x00800801 -- OCCUPIED
+   MISS due to FULL SET -- LRU replace block 0; unused since (3)
+(27) address: 0x100100a0 (tag 0x00800805)  block range: 0-1
+   trying block 0 tag 0x00800805 -- HIT
+(28) address: 0x10010000 (tag 0x00800800)  block range: 0-1
+   trying block 0 tag 0x00800805 -- OCCUPIED
+   trying block 1 tag 0x00800801 -- OCCUPIED
+   MISS due to FULL SET -- LRU replace block 1; unused since (4)
+(29) address: 0x100100a4 (tag 0x00800805)  block range: 2-3
+   trying block 2 tag 0x00800800 -- OCCUPIED
+   trying block 3 tag 0x00800804 -- OCCUPIED
+   MISS due to FULL SET -- LRU replace block 3; unused since (6)
+(30) address: 0x100100a4 (tag 0x00800805)  block range: 2-3
+   trying block 2 tag 0x00800800 -- OCCUPIED
+   trying block 3 tag 0x00800805 -- HIT
