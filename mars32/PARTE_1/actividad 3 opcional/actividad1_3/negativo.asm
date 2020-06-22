@@ -1,10 +1,6 @@
 ################################################################################
 #
-#    RUTINA PARA EL C¡LCULO DEL NEGATIVO DE UNA IMAGEN
-#    AUTOR: Luis RincÛn CÛrcoles (luis.rincon@urjc.es)
-#    FECHA:
-#         VersiÛn 1: 8-3-2013
-#         VersiÛn 2: 20-10-2015
+#    RUTINA PARA EL C√ÅLCULO DEL NEGATIVO DE UNA IMAGEN
 #	
 ################################################################################
 			.text
@@ -15,10 +11,10 @@
 # Subrutina que obtiene el negativo de una imagen
 #
 ################################################################################
-# Par·metros
+# Par√°metros
 #	a0: imagen de entrada (por referencia)
-#	a1: n˙mero de filas (por valor)
-#	a2: n˙mero de columnas (por valor)
+#	a1: n√∫mero de filas (por valor)
+#	a2: n√∫mero de columnas (por valor)
 #       a3: imagen de salida (por referencia)
 ################################################################################
 # Valor de retorno
@@ -55,22 +51,22 @@ repeat_1:
 # REPEAT
 repeat_2:
 # img_out[fil][col] := 255 - img_in[fil][col];
-   # Leer pÌxel de entrada
+   # Leer p√≠xel de entrada
       # Calcular desplazamiento respecto del origen
 			mult	$t1,$a2
 			mflo	$t2
 			addu	$t3,$t2,$t0
       # Sumar desplazamiento con registro base
 			addu	$t4,$a0,$t3
-      # Leer pÌxel actual
+      # Leer p√≠xel actual
 			lbu	$t9,0($t4)
-   # Calcular el negativo del pÌxel leÌdo
+   # Calcular el negativo del p√≠xel le√≠do
 			li	$t8,255
 			sub	$t9,$t8,$t9
    # Escribir pixel resultante
       # Sumar desplazamiento con registro base
 			addu	$t5,$a3,$t3
-      # Escribir pÌxel		
+      # Escribir p√≠xel		
 			sb	$t9,0($t5)
 # Incrementar contador
 # col := col + 1;
@@ -86,5 +82,5 @@ until_1:
 			bne	$t1,$a1,repeat_1
 ## END {subrutina}
 negativo_end:
-# Fin del cÛdigo de la subrutina
+# Fin del c√≥digo de la subrutina
 			jr		$ra
