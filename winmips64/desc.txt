@@ -1,1 +1,2 @@
 Wimmips64 architecture used.
+Download the architecture to run the codes: http://indigo.ie/~mscott/
